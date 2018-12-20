@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage() { echo "Usage: $0 [-o <threshold value for OK>] [-w <threshold value for WARNING>] [-u <DB user>] [-p <DB password>] [-d <Database>] [-dt <Database-type. Monocle or RM>" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-o <threshold value for OK>] [-w <threshold value for WARNING>] [-u <DB user>] [-p <DB password>] [-d <Database>] [-t <Database-type. Monocle or RM>" 1>&2; exit 1; }
 
 while getopts ":o:w:u:p:d:dt:" a; do
     case "${a}" in
@@ -19,8 +19,8 @@ while getopts ":o:w:u:p:d:dt:" a; do
         d)
             d=${OPTARG}
             ;;
-        dt)
-            dt=${OPTARG}
+        t)
+            t=${OPTARG}
             ;;
         *)
            usage
@@ -30,14 +30,15 @@ done
 shift $((OPTIND-1))
 
 #query local DB
-if [ "$dt" -eq "Monocle" ]
-then 
+if [ "$t" == "Monocle" ]
+then
     pokemon=$(mysql -u ${u} -p${p} -D ${d} -N -B -e "select count(*) from sightings where expire_timestamp > unix_timestamp()")
-elif [ "$dt" -eq "RM" ]
+elif [ "$t" == "RM" ]
 then
     pokemon=$(mysql -u ${u} -p${p} -D ${d} -N -B -e "select count(*) from pokemon where disappear_time > utc_timestamp()")
 else
     echo "Wrong Database-type, please use \"Monocle\" or \"RM\"!"
+    exit 3
 fi
 output="Spawned pokemon: $pokemon | spawned_pokemon=$pokemon"
 
@@ -54,6 +55,6 @@ then
     echo "CRITICAL - $output"
     exit 2
 else
-echo "UNKNOWN - $output"
-exit 3
+    echo "UNKNOWN - $output"
+    exit 3
 fi
