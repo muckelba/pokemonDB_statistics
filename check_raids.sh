@@ -15,12 +15,7 @@ do
 		*) usage;;
 	esac
 done
-echo $OK
-echo $WARN
-echo $USER
-echo $PASS
-echo $DB
-echo $TYPE
+
 #query local DB
 if [ "$TYPE" == "Monocle" ]
 then
