@@ -22,7 +22,7 @@ then
 	raid=$(mysql -u ${USER} -p${PASS} -D ${DB} -N -B -e "select count(*) from raids where level=5 and time_end > unix_timestamp();")
 elif [ "$TYPE" == "RM" ]
 then
-	raid=$(mysql -u ${USER} -p${PASS} -D ${DB} -N -B -e "SELECT COUNT(*) FROM raid WHERE level=5 AND end > NOW()")
+	raid=$(mysql -u ${USER} -p${PASS} -D ${DB} -N -B -e "SELECT COUNT(*) FROM raid WHERE level=5 AND end > UTC_TIMESTAMP()")
 else
     echo "Wrong Database-type, please use \"Monocle\" or \"RM\"!"
     exit 3
