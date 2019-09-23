@@ -26,18 +26,18 @@ while getopts ":o:w:u:p:d:" a; do
 done
 shift $((OPTIND-1))
 
-pokemon=$(mysql -u ${u} -p${p} -D ${d} -N -B -e "SELECT COUNT(*) FROM pokemon WHERE disappear_time > UTC_TIMESTAMP()")
-output="Spawned pokemon: $pokemon | spawned_pokemon=$pokemon"
+quests=$(mysql -u ${u} -p${p} -D ${d} -N -B -e "SELECT COUNT(*) FROM trs_quest WHERE FROM_UNIXTIME(quest_timestamp) > UTC_DATE()")
+output="Current quests: $quests | qurrent_quests=$quests"
 
-if [ "$pokemon" -gt "${o}" ]
+if [ "$quests" -gt "${o}" ]
 then
     echo "OK - $output"
     exit 0
-elif [ "$pokemon" -gt "${w}" ]
+elif [ "$quests" -gt "${w}" ]
 then
     echo "WARNING - $output"
     exit 1
-elif [ "$pokemon" -le "${w}" ]
+elif [ "$quests" -le "${w}" ]
 then
     echo "CRITICAL - $output"
     exit 2
