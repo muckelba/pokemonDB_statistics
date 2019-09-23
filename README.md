@@ -1,5 +1,5 @@
 # check_[quests|raids|spawns]
-A script collection to check the spawned Pokémon, raids and quests of a local Monocle DB. Can be used with Nagios or Icinga. Supports performance-data.
+A script collection to check the spawned Pokémon, raids and quests of a local Rocketmap DB. Can be used with Nagios or Icinga. Supports performance-data.
 
 ## Usage:
 
