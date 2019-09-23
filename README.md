@@ -1,5 +1,5 @@
 # check_rocketmap
-a script to check the spawned Pokémon of a local RocketMap or Monocle DB. Can be used with Nagios or Icinga. Supports performance-data.
+a script collection to check the spawned Pokémon, raids and quests of a local Monocle DB. Can be used with Nagios or Icinga. Supports performance-data.
 
 ## Usage:
 
