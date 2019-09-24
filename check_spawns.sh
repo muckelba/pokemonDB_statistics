@@ -26,7 +26,7 @@ while getopts ":o:w:u:p:d:" a; do
 done
 shift $((OPTIND-1))
 
-pokemon=$(mysql -u ${u} -p${p} -D ${d} -N -B -e "SELECT COUNT(*) FROM pokemon WHERE disappear_time > UTC_TIMESTAMP()")
+pokemon=$(export MYSQL_PWD=${p}; mysql -u ${u} -D ${d} -N -B -e "SELECT COUNT(*) FROM pokemon WHERE disappear_time > UTC_TIMESTAMP()")
 output="Spawned pokemon: $pokemon | spawned_pokemon=$pokemon"
 
 if [ "$pokemon" -gt "${o}" ]
