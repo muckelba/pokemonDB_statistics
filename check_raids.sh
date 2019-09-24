@@ -16,9 +16,9 @@ do
 done
 
 #query local DB
-raids=$(mysql -u ${USER} -p${PASS} -D ${DB} -N -B -e "SELECT COUNT(*) total, SUM(CASE WHEN level=1 THEN 1 ELSE 0 END) level1, SUM(CASE WHEN level=2 THEN 1 ELSE 0 END) level2, SUM(CASE WHEN level=3 THEN 1 ELSE 0 END) level3, SUM(CASE WHEN level=4 THEN 1 ELSE 0 END) level4, SUM(CASE WHEN level=5 THEN 1 ELSE 0 END) level5 FROM raid WHERE end > UTC_TIMESTAMP()")
+raids=$(export MYSQL_PWD=${PASS};  mysql -u ${USER} -D ${DB} -N -B -e "SELECT COUNT(*) total, SUM(CASE WHEN level=1 THEN 1 ELSE 0 END) level1, SUM(CASE WHEN level=2 THEN 1 ELSE 0 END) level2, SUM(CASE WHEN level=3 THEN 1 ELSE 0 END) level3, SUM(CASE WHEN level=4 THEN 1 ELSE 0 END) level4, SUM(CASE WHEN level=5 THEN 1 ELSE 0 END) level5 FROM raid WHERE end > UTC_TIMESTAMP()")
 array=($(for i in $raids; do echo $i; done))
-output="Current raids: ${array[0]} | current_raids=${array[0]} | current_raids_1=${array[1]} | current_raids_2=${array[2]} | current_raids_3=${array[3]} | current_raids_4=${array[4]} | current_raids_5=${array[5]}"
+output="Current raids: ${array[0]} | current_raids=${array[0]}, current_raids_1=${array[1]}, current_raids_2=${array[2]}, current_raids_3=${array[3]}, current_raids_4=${array[4]}, current_raids_5=${array[5]}"
 
 if [ "${array[0]}" -gt "${OK}" ]
 then
