@@ -26,7 +26,7 @@ while getopts ":o:w:u:p:d:" a; do
 done
 shift $((OPTIND-1))
 
-quests=$(mysql -u ${u} -p${p} -D ${d} -N -B -e "SELECT COUNT(*) FROM trs_quest WHERE FROM_UNIXTIME(quest_timestamp) > UTC_DATE()")
+quests=$(export MYSQL_PWD=${PASS}; mysql -u ${u} -p${p} -D ${d} -N -B -e "SELECT COUNT(*) FROM trs_quest WHERE FROM_UNIXTIME(quest_timestamp) > UTC_DATE()")
 output="Current quests: $quests | qurrent_quests=$quests"
 
 if [ "$quests" -gt "${o}" ]
